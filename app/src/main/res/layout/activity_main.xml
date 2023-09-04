@@ -7,7 +7,7 @@
     tools:context=".activity.MainActivity"
     android:background="@color/black">
 
-    <com.github.mikephil.charting.charts.CombinedChart
+    <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="0dp"
         android:layout_height="360dp"
