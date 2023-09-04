@@ -3,5 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="lightsalmon">#FFA07A</color>
+    <color name="darkcyan">#008B8B</color>
+    <color name="royalblue">#4169E1</color>
+    <color name="lightskyblue">#87CEFA</color>
+    <color name="navajowhite">#FFDEAD</color>
+    <color name="peru">#CD853F</color>
+    <color name="salmon">#FA8072</color>
 </resources>

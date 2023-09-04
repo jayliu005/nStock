@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         binding.chart.isHighlightFullBarEnabled = false
 
         binding.chart.drawOrder = arrayOf(
-            DrawOrder.BAR, DrawOrder.LINE
+            DrawOrder.LINE
         )
 
         val legend: Legend = binding.chart.legend
@@ -90,26 +90,29 @@ class MainActivity : AppCompatActivity() {
         }
         xAxis.position = XAxisPosition.BOTTOM //X軸僅顯示下方
 
-//        val data = CombinedData()
-//        data.setData(generateStockLineData())
-
-
         val dataSets = java.util.ArrayList<ILineDataSet>()
-        dataSets.add(generateStockLineData())
+
+        dataSets.add(generatePE5LineData())
+        dataSets.add(generatePE4LineData())
+        dataSets.add(generatePE3LineData())
+        dataSets.add(generatePE2LineData())
+        dataSets.add(generatePE1LineData())
         dataSets.add(generatePE0LineData())
+
+        dataSets.add(generateStockLineData())
 
         val lineData = LineData(dataSets)
         val data = CombinedData()
         data.setData(lineData)
 
         xAxis.axisMaximum = data.xMax   //必須在資料產生好後設定
-        binding.chart.setVisibleXRange(0f, 5f)
+        binding.chart.setVisibleXRange(0f, 20f)
         binding.chart.data = data
+//        binding.chart.setGridBackgroundColor(Color.WHITE)
         binding.chart.invalidate()
     }
 
     private fun generateStockLineData(): LineDataSet {
-//        val lineData = LineData()
         val entries = ArrayList<Entry>()
 
         stockData?.chartData?.let {stickDetailList ->
@@ -130,14 +133,12 @@ class MainActivity : AppCompatActivity() {
         lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
 
 
-//        lineData.addDataSet(lineDataSet)
-//        return lineData
         return lineDataSet
     }
 
     private fun generatePE0LineData(): LineDataSet {
-//        val lineData = LineData()
         val entries = ArrayList<Entry>()
+
 
         stockData?.chartData?.let {stockDetailList ->
 
@@ -149,16 +150,145 @@ class MainActivity : AppCompatActivity() {
 
         val labelDescription = (stockData?.peRatio?.get(0) ?: "") + " 倍 " + (stockData?.chartData?.get(0)?.peRatioBenchmark?.get(0) ?: "")
         val lineDataSet = LineDataSet(entries, labelDescription)
-        lineDataSet.color = ContextCompat.getColor(this, R.color.lightsalmon)
-        lineDataSet.lineWidth = 10f
+        lineDataSet.color = ContextCompat.getColor(this, R.color.darkcyan)
+        lineDataSet.lineWidth = 4f
         lineDataSet.setDrawCircles(false)
-        lineDataSet.fillColor = Color.rgb(240, 238, 70)
         lineDataSet.mode = LineDataSet.Mode.LINEAR
         lineDataSet.setDrawValues(false)
         lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
+        lineDataSet.fillAlpha = 255
+        lineDataSet.setDrawFilled(true)
+        lineDataSet.fillColor = Color.WHITE
 
-//        lineData.addDataSet(lineDataSet)
-//        return lineData
+        return lineDataSet
+    }
+
+    private fun generatePE1LineData(): LineDataSet {
+        val entries = ArrayList<Entry>()
+
+        stockData?.chartData?.let {stockDetailList ->
+
+            val list = stockDetailList.reversed()
+            for (index in list.indices){
+                entries.add(Entry(index.toFloat(), list[index].peRatioBenchmark[1].toFloat()))
+            }
+        }
+
+        val labelDescription = (stockData?.peRatio?.get(1) ?: "") + " 倍 " + (stockData?.chartData?.get(0)?.peRatioBenchmark?.get(1) ?: "")
+        val lineDataSet = LineDataSet(entries, labelDescription)
+        lineDataSet.color = ContextCompat.getColor(this, R.color.royalblue)
+        lineDataSet.lineWidth = 2f
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.mode = LineDataSet.Mode.LINEAR
+        lineDataSet.setDrawValues(false)
+        lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
+        lineDataSet.fillAlpha = 255
+        lineDataSet.setDrawFilled(true)
+        lineDataSet.fillColor = ContextCompat.getColor(this, R.color.royalblue)
+
+        return lineDataSet
+    }
+
+    private fun generatePE2LineData(): LineDataSet {
+        val entries = ArrayList<Entry>()
+
+        stockData?.chartData?.let {stockDetailList ->
+
+            val list = stockDetailList.reversed()
+            for (index in list.indices){
+                entries.add(Entry(index.toFloat(), list[index].peRatioBenchmark[2].toFloat()))
+            }
+        }
+
+        val labelDescription = (stockData?.peRatio?.get(2) ?: "") + " 倍 " + (stockData?.chartData?.get(0)?.peRatioBenchmark?.get(2) ?: "")
+        val lineDataSet = LineDataSet(entries, labelDescription)
+        lineDataSet.color = ContextCompat.getColor(this, R.color.lightskyblue)
+        lineDataSet.lineWidth = 2f
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.mode = LineDataSet.Mode.LINEAR
+        lineDataSet.setDrawValues(false)
+        lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
+        lineDataSet.fillAlpha = 255
+        lineDataSet.setDrawFilled(true)
+        lineDataSet.fillColor = ContextCompat.getColor(this, R.color.lightskyblue)
+
+        return lineDataSet
+    }
+
+    private fun generatePE3LineData(): LineDataSet {
+        val entries = ArrayList<Entry>()
+
+        stockData?.chartData?.let {stockDetailList ->
+
+            val list = stockDetailList.reversed()
+            for (index in list.indices){
+                entries.add(Entry(index.toFloat(), list[index].peRatioBenchmark[3].toFloat()))
+            }
+        }
+
+        val labelDescription = (stockData?.peRatio?.get(3) ?: "") + " 倍 " + (stockData?.chartData?.get(0)?.peRatioBenchmark?.get(3) ?: "")
+        val lineDataSet = LineDataSet(entries, labelDescription)
+        lineDataSet.color = ContextCompat.getColor(this, R.color.navajowhite)
+        lineDataSet.lineWidth = 2f
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.mode = LineDataSet.Mode.LINEAR
+        lineDataSet.setDrawValues(false)
+        lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
+        lineDataSet.fillAlpha = 255
+        lineDataSet.setDrawFilled(true)
+        lineDataSet.fillColor = ContextCompat.getColor(this, R.color.navajowhite)
+
+        return lineDataSet
+    }
+
+    private fun generatePE4LineData(): LineDataSet {
+        val entries = ArrayList<Entry>()
+
+        stockData?.chartData?.let {stockDetailList ->
+
+            val list = stockDetailList.reversed()
+            for (index in list.indices){
+                entries.add(Entry(index.toFloat(), list[index].peRatioBenchmark[4].toFloat()))
+            }
+        }
+
+        val labelDescription = (stockData?.peRatio?.get(4) ?: "") + " 倍 " + (stockData?.chartData?.get(0)?.peRatioBenchmark?.get(4) ?: "")
+        val lineDataSet = LineDataSet(entries, labelDescription)
+        lineDataSet.color = ContextCompat.getColor(this, R.color.peru)
+        lineDataSet.lineWidth = 2f
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.mode = LineDataSet.Mode.LINEAR
+        lineDataSet.setDrawValues(false)
+        lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
+        lineDataSet.fillAlpha = 255
+        lineDataSet.setDrawFilled(true)
+        lineDataSet.fillColor = ContextCompat.getColor(this, R.color.peru)
+
+        return lineDataSet
+    }
+
+    private fun generatePE5LineData(): LineDataSet {
+        val entries = ArrayList<Entry>()
+
+        stockData?.chartData?.let {stockDetailList ->
+
+            val list = stockDetailList.reversed()
+            for (index in list.indices){
+                entries.add(Entry(index.toFloat(), list[index].peRatioBenchmark[5].toFloat()))
+            }
+        }
+
+        val labelDescription = (stockData?.peRatio?.get(5) ?: "") + " 倍 " + (stockData?.chartData?.get(0)?.peRatioBenchmark?.get(5) ?: "")
+        val lineDataSet = LineDataSet(entries, labelDescription)
+        lineDataSet.color = ContextCompat.getColor(this, R.color.salmon)
+        lineDataSet.lineWidth = 2f
+        lineDataSet.setDrawCircles(false)
+        lineDataSet.mode = LineDataSet.Mode.LINEAR
+        lineDataSet.setDrawValues(false)
+        lineDataSet.axisDependency = YAxis.AxisDependency.LEFT
+        lineDataSet.fillAlpha = 255
+        lineDataSet.setDrawFilled(true)
+        lineDataSet.fillColor = ContextCompat.getColor(this, R.color.salmon)
 
         return lineDataSet
     }
