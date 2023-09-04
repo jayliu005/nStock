@@ -13,7 +13,9 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import java.lang.ref.WeakReference
 
 object StockChartManager {
@@ -72,6 +74,26 @@ object StockChartManager {
         xAxis.axisMaximum = lineData.xMax   //必須在資料產生好後設定
         chart.setVisibleXRange(0f, 20f)
         chart.data = lineData
+        chart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onValueSelected(entry: Entry, h: Highlight) {
+                val chartLineData = chart.data
+                var peRatioIndex = RIVER_NUMBER - 1
+                for (index in 0..chartLineData.dataSets.size - 2) {
+                    val dataEntry = chartLineData.dataSets[index].getEntryForIndex(entry.x.toInt())
+                    chartLineData.dataSets[index].label =
+                        StockChartManager.stockData.peRatio[peRatioIndex] + " 倍 " + dataEntry.y
+                    peRatioIndex--
+                }
+                val stockLineData = chartLineData.dataSets.last()
+                stockLineData.label = "股價 " + stockLineData.getEntryForIndex(entry.x.toInt()).y
+
+                chart.data = chartLineData
+                chart.invalidate()
+            }
+
+            override fun onNothingSelected() {
+            }
+        })
         chart.invalidate()
     }
 
@@ -86,11 +108,13 @@ object StockChartManager {
             }
         }
 
-        val lineDataSet = LineDataSet(entries, "股價")
+        val lineDataSet = LineDataSet(
+            entries,
+            "股價 " + stockData.chartData.reversed().last().monthlyAveragePrice.toFloat()
+        )
         contextRef.get()?.let {
             lineDataSet.color = ContextCompat.getColor(it, android.R.color.holo_red_light)
         }
-
         lineDataSet.lineWidth = 2f
         lineDataSet.setDrawCircles(false)
         lineDataSet.fillColor = Color.rgb(240, 238, 70)
