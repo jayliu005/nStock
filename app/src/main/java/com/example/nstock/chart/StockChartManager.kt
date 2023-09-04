@@ -34,10 +34,13 @@ object StockChartManager {
 
         val legend: Legend = chart.legend
         legend.isWordWrapEnabled = true
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.CENTER
+        legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
         legend.orientation = Legend.LegendOrientation.HORIZONTAL
-        legend.setDrawInside(false)
+        legend.textSize = 12f
+        legend.xEntrySpace = 12f
+        legend.formSize = 12f
+        legend.yOffset = 32f   //Legend距離上方的offset
 
         val rightAxis: YAxis = chart.axisRight
         rightAxis.setDrawGridLines(false)
@@ -81,19 +84,31 @@ object StockChartManager {
                 for (index in 0..chartLineData.dataSets.size - 2) {
                     val dataEntry = chartLineData.dataSets[index].getEntryForIndex(entry.x.toInt())
                     chartLineData.dataSets[index].label =
-                        StockChartManager.stockData.peRatio[peRatioIndex] + " 倍 " + dataEntry.y
+                        StockChartManager.stockData.peRatio[peRatioIndex] + " 倍 " + dataEntry.y + "\n"
                     peRatioIndex--
                 }
                 val stockLineData = chartLineData.dataSets.last()
                 stockLineData.label = "股價 " + stockLineData.getEntryForIndex(entry.x.toInt()).y
 
                 chart.data = chartLineData
+                chart.description.text =
+                    stockData.chartData.reversed()[entry.x.toInt()].date.substring(0, 4) +
+                            "/" + stockData.chartData.reversed()[entry.x.toInt()].date.substring(4, 6)
                 chart.invalidate()
             }
 
             override fun onNothingSelected() {
             }
         })
+
+        chart.description.setPosition(180f, 60f)
+        chart.description.textSize = 14f
+        chart.description.isEnabled = true
+        chart.description.text = stockData.chartData.first().date.substring(0, 4) +
+                "/" + stockData.chartData.first().date.substring(4, 6)
+
+        chart.setExtraOffsets(12f, 12f, 12f, 12f)
+
         chart.invalidate()
     }
 
