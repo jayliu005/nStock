@@ -12,4 +12,7 @@
 * Retrofit + Coroutine(Flow) to achieve HTTP connection  
 * Hilt to achieve dependency injection 
 
+### UI component
+* MPAndroidChart
+
 ![](https://github.com/jayliu005/nStock/blob/master/app/src/main/assets/nstock_snapshot.png)
