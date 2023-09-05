@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.nstock.Config
+import com.example.nstock.R
 import com.example.nstock.chart.StockChartManager
 import com.example.nstock.databinding.ActivityMainBinding
 import com.example.nstock.viewmodel.MainViewModel
@@ -21,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater).also {
             setContentView(it.root)
         }
-        title = "台積電 2330"
+        title = getString(R.string.tsmc_2330)
         initViewModel()
     }
 

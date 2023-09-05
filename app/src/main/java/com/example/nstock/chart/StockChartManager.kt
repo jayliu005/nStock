@@ -93,7 +93,10 @@ object StockChartManager {
                 chart.data = chartLineData
                 chart.description.text =
                     stockData.chartData.reversed()[entry.x.toInt()].date.substring(0, 4) +
-                            "/" + stockData.chartData.reversed()[entry.x.toInt()].date.substring(4, 6)
+                            "/" + stockData.chartData.reversed()[entry.x.toInt()].date.substring(
+                        4,
+                        6
+                    )
                 chart.invalidate()
             }
 
@@ -125,7 +128,8 @@ object StockChartManager {
 
         val lineDataSet = LineDataSet(
             entries,
-            "股價 " + stockData.chartData.reversed().last().monthlyAveragePrice.toFloat()
+            contextRef.get()?.getString(R.string.price) + " " +
+                    stockData.chartData.reversed().last().monthlyAveragePrice.toFloat()
         )
         contextRef.get()?.let {
             lineDataSet.color = ContextCompat.getColor(it, android.R.color.holo_red_light)
@@ -152,7 +156,11 @@ object StockChartManager {
         }
 
         val labelDescription =
-            (stockData.peRatio[index]) + " 倍 " + (stockData.chartData[0].peRatioBenchmark[index])
+            (stockData.peRatio[index]) +
+                    " " +
+                    contextRef.get()?.getString(R.string.times) +
+                    " " +
+                    (stockData.chartData[0].peRatioBenchmark[index])
         val lineDataSet = LineDataSet(entries, labelDescription)
         lineDataSet.lineWidth = 4f
         lineDataSet.setDrawCircles(false)

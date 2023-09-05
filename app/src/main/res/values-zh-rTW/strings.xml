@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">nStock</string>
+    <string name="tsmc_2330">台積電 2330</string>
+    <string name="times">倍</string>
+    <string name="price">股價</string>
+</resources>
