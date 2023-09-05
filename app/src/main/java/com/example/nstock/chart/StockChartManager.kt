@@ -84,11 +84,14 @@ object StockChartManager {
                 for (index in 0..chartLineData.dataSets.size - 2) {
                     val dataEntry = chartLineData.dataSets[index].getEntryForIndex(entry.x.toInt())
                     chartLineData.dataSets[index].label =
-                        StockChartManager.stockData.peRatio[peRatioIndex] + " 倍 " + dataEntry.y + "\n"
+                        StockChartManager.stockData.peRatio[peRatioIndex] + " " +
+                                contextRef.get()?.getString(R.string.times) +
+                                " " + + dataEntry.y
                     peRatioIndex--
                 }
                 val stockLineData = chartLineData.dataSets.last()
-                stockLineData.label = "股價 " + stockLineData.getEntryForIndex(entry.x.toInt()).y
+                stockLineData.label = contextRef.get()?.getString(R.string.price) + " " +
+                        stockLineData.getEntryForIndex(entry.x.toInt()).y
 
                 chart.data = chartLineData
                 chart.description.text =
