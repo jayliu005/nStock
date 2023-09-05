@@ -4,6 +4,7 @@
 * Display stock 2330 run chart
 * Display P/E ratio trends in river chart
 * Display selected information of whole data sets in legend & description
+* Horizontally scroll the chart to see every monthly price
 
 ### This app will display android concept as follow  
 * 100% Kotlin language  
