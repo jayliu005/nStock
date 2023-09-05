@@ -11,3 +11,5 @@
 * Android MVVM architecture (ViewModel/Repository)  
 * Retrofit + Coroutine(Flow) to achieve HTTP connection  
 * Hilt to achieve dependency injection 
+
+![](https://github.com/jayliu005/nStock/blob/master/app/src/main/assets/nstock_snapshot.png)
